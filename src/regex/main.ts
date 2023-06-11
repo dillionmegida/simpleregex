@@ -13,31 +13,37 @@ export default function explainRegex(str: string): string {
 
     while (position < strItems.length) {
       const char = strItems[position]
+      let handle
 
-      if (char === "\\") {
-        // this should be a metacharacter
-        const handle = handleMetaChar(str, position)
-        currentLabel = "metacharacter"
+      switch (char) {
+        case "\\":
+          // this should be a metacharacter
+          handle = handleMetaChar(str, position)
+          currentLabel = "metacharacter"
 
-        position = handle.newPosition
-        explanation += `${handle.explanation}`
-      } else if (char === "[") {
-        // this should be a character class
-        const handle = handleCharacterClass(str, position)
-        currentLabel = "characterclass"
+          position = handle.newPosition
+          explanation += handle.explanation
+          break
 
-        position = handle.newPosition
-        explanation += `<br/><br/>${handle.explanation}`
-      } else {
-        // handle other characters
-        console.log(currentLabel)
+        case "[":
+          // this should be a character class
+          handle = handleCharacterClass(str, position)
+          currentLabel = "characterclass"
 
-        explanation +=
-          currentLabel === "normal"
-            ? `, ${char}`
-            : `${position ? "<br/><br/>followed by" : "Begins with"} ${char}`
+          position = handle.newPosition
+          explanation += handle.explanation
+          break
 
-        currentLabel = "normal"
+        default:
+          // handle other characters
+          console.log(currentLabel)
+
+          explanation +=
+            currentLabel === "normal"
+              ? `, ${char}`
+              : `${position ? "<br/><br/>followed by" : "Begins with"} ${char}`
+
+          currentLabel = "normal"
       }
 
       position++

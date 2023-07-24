@@ -1,5 +1,10 @@
-import {ALL_DIGITS, ALL_SPACES, ALL_LETTERS, ALL_SYMBOLS, UNDERSCORE} from './characters'
-
+import {
+  ALL_DIGITS,
+  ALL_SPACES,
+  ALL_LETTERS,
+  ALL_SYMBOLS,
+  UNDERSCORE,
+} from "./characters"
 
 const META_CHARACTERS = {
   "\\d": {
@@ -42,9 +47,7 @@ export default function handleMetaChar(
   const metaChar = `${char}${nextChar}`
 
   return {
-    explanation: `${position ? "<br/><br/>followed by" : "Begins with"} ${
-      META_CHARACTERS[metaChar].desc
-    }`,
+    explanation: META_CHARACTERS[metaChar].desc,
     newPosition: dupPosition,
   }
 }

@@ -9,7 +9,7 @@ export default function handleCharacterClass(str: string, position: number) {
   if (isNegated) dupPosition++
 
   let explanation = position
-    ? `<br/><br/>${
+    ? `${
         isNegated ? "not followed by any of " : "followed by either "
       }`
     : `${isNegated ? "Does not begin " : "Begins "} with `
